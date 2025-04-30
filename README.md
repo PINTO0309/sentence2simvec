@@ -14,7 +14,8 @@ curl -LsSf https://astral.sh/uv/install.sh | sh
 # Windows
 powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 
-uv venv -p 3.12 .venv
+# 3.10, 3.11, 3.12, 3.13, ...
+uv venv -p 3.10 .venv
 source .venv/bin/activate # Windows: .venv\Scripts\activate
 
 uv pip install -U sentence2simvec
@@ -27,7 +28,9 @@ uv pip install -e .
     ```bash
     sentence2simvec "Hello!" "Hello world!" --save-vecs ./vecs
 
-    # Similarity: 0.3800
+    # Similarity: 0.7135
+    #    • n-gram  = 0.2727
+    #    • cosine  = 0.9024
     # vecs/vec1.npy, vecs/vec2.npy written
     ```
 - Python API
@@ -51,13 +54,21 @@ uv pip install -e .
 
 ## Development
 ```bash
-uv venv -p 3.12 .venv && source .venv/bin/activate
+uv venv -p 3.10 .venv && source .venv/bin/activate
 uv pip install build twine pytest ipdb sentence-transformers numpy
 
 # debug run
 python sentence2simvec/core.py "Hello!" "Hello world!"
 
-pytest              # tests
-python -m build     # build
-twine upload dist/* # upload PyPI
+# tests
+pytest
+
+# build
+python -m build
+
+# upload PyPI
+export TWINE_USERNAME="__token__"
+export TWINE_PASSWORD="pypi-..."
+twine upload dist/*
+unset TWINE_USERNAME TWINE_PASSWORD
 ```

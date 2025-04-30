@@ -1,0 +1,21 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Debug core.py",
+        "type": "debugpy",
+        "request": "launch",
+        "program": "${workspaceFolder}/sentence2simvec/core.py",
+        "console": "integratedTerminal",
+        "justMyCode": false,
+        // "env": {
+        //   "CUDA_VISIBLE_DEVICES": ""
+        // },
+        "args": [
+          "Hello!",
+          "Hello world!",
+        ],
+        "python": "${workspaceFolder}/.venv/bin/python"
+      }
+    ]
+  }
